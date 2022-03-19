@@ -1,10 +1,12 @@
 .detail-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 16px;
+  column-gap: 20px;
 
   .label {
     font-weight: 500;
+    min-width: 35%;
   }
 }

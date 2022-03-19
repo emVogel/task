@@ -51,7 +51,6 @@ export class DashboardComponent implements OnInit {
         this.searchFacade.search(filterTerm?.searchFuncSelect || FhirSearchFn.SearchAll, filterTerm.searchText).pipe(
           catchError(this.handleError),
           tap((data) => {
-            console.log('tap');
             this.isLoading = false;
           }),
           shareReplay(),

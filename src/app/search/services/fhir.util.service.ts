@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  FhirResourceType,
   IFhirPatient,
   IFhirPractitioner,
   IFhirResourceAddress,
   IFhirResourceHumanName,
+  IFhirResourceTelecom,
   IPreparedIFhirPatient,
   IPreparedIFhirPractitioner,
+  PreparedFhirData,
 } from '@red-probeaufgabe/types';
+import { IPatientDetailData, IPractitionerDetailData, PatientLabel, PractitionerLabel } from 'app/ui/models';
 import { SearchModule } from '../search.module';
 
 @Injectable({ providedIn: SearchModule })
@@ -29,6 +33,32 @@ export class FhirUtilService {
     return `${line}${city}${postalCode}${state}`;
   }
 
+  private static getFhirTelecomRepresentation(telecom: IFhirResourceTelecom[]): string[] | null {
+    return telecom?.map(
+      (entry) => `
+    ${entry?.rank || ''}  ${entry?.system + ':' ?? ''} ${entry?.value ?? ''} ${entry.use ? '(' + entry.use + ')' : ''}`,
+    );
+  }
+
+  /** returns the shared details of patiens and practitioners */
+  static getCommonDetailData(
+    prepData: IPreparedIFhirPatient | IPreparedIFhirPractitioner,
+  ): Pick<IPreparedIFhirPatient | IPreparedIFhirPractitioner, 'resourceType' | 'id'> & { name: string } {
+    return {
+      resourceType: prepData.resourceType,
+      id: prepData.id,
+      name: prepData.name[0],
+    };
+  }
+  /** returns shared labels */
+  static get commonLabels(): { [key: string]: string } {
+    return {
+      id: 'Id',
+      name: 'Name',
+      resourceType: 'Resource Type',
+    };
+  }
+
   /**
    * Prepare FHIR data for detail view
    * @param data
@@ -41,6 +71,37 @@ export class FhirUtilService {
       FhirUtilService.getFhirNameRepresentation(humanName),
     );
 
-    return { ...data, address, name };
+    const telecom = FhirUtilService.getFhirTelecomRepresentation(data?.telecom);
+
+    return { ...data, address, name, telecom };
+  }
+
+  /** returns the detail data */
+  public getDetailData(data: IFhirPatient | IFhirPractitioner): IPatientDetailData | IPractitionerDetailData {
+    const prepData = this.prepareData(data);
+    const commonDetails = FhirUtilService.getCommonDetailData(prepData);
+
+    return prepData.resourceType === FhirResourceType.Patient
+      ? {
+          ...commonDetails,
+          address: prepData?.address?.join('') || 'No Information available',
+          birthDate: prepData?.birthDate,
+          gender: prepData?.gender,
+        }
+      : { ...commonDetails, telecom: prepData?.telecom?.join(', ') ?? 'No Data Available' };
+  }
+
+  public getLabels(isPatient: boolean): PatientLabel | PractitionerLabel {
+    return isPatient
+      ? ({
+          ...FhirUtilService.commonLabels,
+          address: 'Adresse',
+          birthDate: 'Birthdate',
+          gender: 'Sex',
+        } as PatientLabel)
+      : ({
+          ...FhirUtilService.commonLabels,
+          telecom: 'Telecom',
+        } as PractitionerLabel);
   }
 }

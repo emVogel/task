@@ -84,11 +84,10 @@ export class SearchFormComponent implements OnInit {
   }
 
   /**
-   * emits the search term
+   * emits the search term by click
    */
   public submitSearchString(): void {
     const val: ISearchFormData = this.searchForm.value;
-    console.log('form', this.searchForm.value);
     this.onSearch.emit(val);
   }
 }

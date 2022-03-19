@@ -1,11 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IFhirPatient, IFhirPractitioner } from '@red-probeaufgabe/types';
-
-export interface DetailData {
-  label: string;
-  data: IFhirPatient | IFhirPractitioner;
-}
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IDialogData } from '../models';
 
 @Component({
   selector: 'app-detail-view',
@@ -15,9 +10,12 @@ export interface DetailData {
 export class DialogDetailViewComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogDetailViewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DetailData,
+    @Inject(MAT_DIALOG_DATA) public data: IDialogData,
   ) {}
 
+  public get isPatientView(): boolean {
+    return this.data.detail.resourceType === 'Patient';
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

@@ -1,1 +1,25 @@
-hello dialog
+<h3>Detail View</h3>
+
+
+<app-dialog-detail-row [label]="data.label.resourceType" [data]="data.detail.resourceType">
+</app-dialog-detail-row>
+<app-dialog-detail-row [label]="data.label.id" [data]="data.detail.id">
+</app-dialog-detail-row>
+
+<ng-template #patientView>
+  <app-dialog-detail-row [label]="data.label.birthDate" [data]="data.detail.birthDate">
+  </app-dialog-detail-row>
+  <app-dialog-detail-row [label]="data.label.address" [data]="data.detail.address">
+  </app-dialog-detail-row>
+  <app-dialog-detail-row [label]="data.label.gender" [data]="data.detail.gender">
+  </app-dialog-detail-row>
+</ng-template>
+
+<ng-template #practitionerView>
+  <app-dialog-detail-row [label]="data.label.telecom" [data]="data.detail.telecom">
+  </app-dialog-detail-row>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="isPatientView ? patientView : practitionerView">
+
+</ng-container>
