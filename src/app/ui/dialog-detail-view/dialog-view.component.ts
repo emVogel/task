@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IFhirPatient, IFhirPractitioner } from '@red-probeaufgabe/types';
 
-export interface DialogData {
-  animal: string;
-  name: string;
+export interface DetailData {
+  label: string;
+  data: IFhirPatient | IFhirPractitioner;
 }
 
 @Component({
@@ -14,7 +15,7 @@ export interface DialogData {
 export class DialogDetailViewComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogDetailViewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: DetailData,
   ) {}
 
   onNoClick(): void {

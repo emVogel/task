@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { FhirSearchFn, ISearchFormData } from '@red-probeaufgabe/types';
-import { debounceTime, filter } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { debounceTime, filter, startWith } from 'rxjs/operators';
 /**
  * the type for dropdown select ui
  */
@@ -27,6 +28,7 @@ export class SearchFormComponent implements OnInit {
   @Output() onSearch: EventEmitter<ISearchFormData> = new EventEmitter<ISearchFormData>();
 
   public nameField: FormControl;
+  public selectField: FormControl;
   constructor(private _fb: FormBuilder) {
     const searchStringValidator = (control: AbstractControl): { [key: string]: unknown } => {
       const reg = /[äÄÖöÜü]/;
@@ -51,21 +53,26 @@ export class SearchFormComponent implements OnInit {
     });
 
     this.nameField = this.searchForm.get('searchText') as FormControl;
+    this.selectField = this.searchForm.get('searchFuncSelect') as FormControl;
   }
 
   public ngOnInit(): void {
-    this.nameField.valueChanges
-      .pipe(
-        debounceTime(500),
-        filter(() => !this.nameField.invalid),
-      )
-      .subscribe(() => {
-        const term = {
-          searchText: this.nameField.value,
-          searchFuncSelect: this.searchForm.get('searchFuncSelect').value,
-        };
-        this.onSearch.emit(term);
+    // watching changes for searchField
+    const searchField$: Observable<string> = this.nameField.valueChanges.pipe(
+      debounceTime(500),
+      filter(() => !this.nameField.invalid),
+    );
+    // watching changes for selectField
+    const selectField$: Observable<FhirSearchFn> = this.selectField.valueChanges.pipe(
+      startWith(FhirSearchFn.SearchAll),
+    );
+
+    combineLatest([searchField$, selectField$]).subscribe(([searchTerm, searchFuncSelect]) => {
+      this.onSearch.emit({
+        searchText: searchTerm,
+        searchFuncSelect: searchFuncSelect,
       });
+    });
   }
 
   public isEmpty(): boolean {
