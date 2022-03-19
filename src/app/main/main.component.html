@@ -1,0 +1,6 @@
+<app-sidenav [mainToolbarTitle]="title$ | async" [menuToolbarTitle]="menuToolbarTitle">
+  <app-nav-list (linkClicked)="onLinkClicked($event)" [links]="sidenavLinks" navigation></app-nav-list>
+  <div class="main-container" router>
+    <router-outlet></router-outlet>
+  </div>
+</app-sidenav>

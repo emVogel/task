@@ -1,0 +1,28 @@
+.dialog-responsive {
+  width: 30%;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+  }
+
+  .header-icon {
+    margin-left: 8px;
+  }
+}
+
+.mat-dialog-content {
+  font-size: 18px;
+}
+
+@media only screen and (max-width: 768px) {
+  .dialog-responsive {
+    width: 100%;
+    max-width: 100% !important;
+  }
+}

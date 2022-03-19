@@ -1,0 +1,47 @@
+.table-container {
+  position: relative;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}
+
+.no-data {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: rgba($color: #808080, $alpha: 0.3);
+}
+
+.mat-row:active {
+  background-color: rgba($color: #808080, $alpha: 0.8);
+}

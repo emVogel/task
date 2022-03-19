@@ -1,0 +1,54 @@
+<div class="mat-elevation-z8">
+  <div class="table-container">
+    <div *ngIf="isLoading" class="loading-shade">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+
+    <table
+      *ngIf="dataSource && dataSource.data && dataSource.data.length > 0; else noData"
+      [dataSource]="dataSource"
+      class="table"
+      mat-table
+    >
+      <!-- Number Column -->
+      <ng-container matColumnDef="number">
+        <th *matHeaderCellDef mat-header-cell>#</th>
+        <td *matCellDef="let row; let i = index" mat-cell>{{ paginator.pageIndex * paginator.pageSize + i + 1 }}</td>
+      </ng-container>
+
+      <!-- Resource Type Column -->
+      <ng-container matColumnDef="resourceType">
+        <th *matHeaderCellDef mat-header-cell>Resource Type</th>
+        <td *matCellDef="let row" mat-cell>{{ row.resourceType }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell>Name</th>
+        <td *matCellDef="let row" mat-cell>
+          <ng-container *ngIf="row.name"> {{ row.name[0]?.given }} {{ row.name[0]?.family }} </ng-container>
+        </td>
+      </ng-container>
+
+      <!-- Gender Column -->
+      <ng-container matColumnDef="gender">
+        <th *matHeaderCellDef mat-header-cell>Gender</th>
+        <td *matCellDef="let row" mat-cell>{{ row.gender ? row.gender : 'Unknown' }}</td>
+      </ng-container>
+
+      <!-- Birthday Column -->
+      <ng-container matColumnDef="birthDate">
+        <th *matHeaderCellDef mat-header-cell>Birthdate</th>
+        <td *matCellDef="let row" mat-cell>{{ row.birthDate ? (row.birthDate | date) : 'Unknown' }}</td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="columns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: columns" class="ripple" mat-row></tr>
+    </table>
+  </div>
+  <mat-paginator [length]="totalLength" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<ng-template #noData>
+  <div class="no-data">No data found!</div>
+</ng-template>

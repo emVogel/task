@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2016", "dom"],
+    "module": "esnext",
+    "paths": {
+      "@red-probeaufgabe/types": ["app/types/index.ts"],
+      "@red-probeaufgabe/ui": ["app/ui/index.ts"],
+      "@red-probeaufgabe/core": ["app/core/index.ts"],
+      "@red-probeaufgabe/search": ["app/search/index.ts"],
+      "@red-probeaufgabe/dashboard": ["app/dashboard/index.ts"]
+    }
+  }
+}

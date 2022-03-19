@@ -1,0 +1,31 @@
+.search-input {
+  width: 100%;
+  flex: 1;
+  margin-right: 16px;
+}
+
+.select-input {
+  flex: 0;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+@media only screen and (max-width: 450px) {
+  form {
+    flex-wrap: wrap;
+  }
+
+  .search-input {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .select-input {
+    flex: 1;
+    width: 100%;
+  }
+}

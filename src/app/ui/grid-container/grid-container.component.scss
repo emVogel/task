@@ -1,0 +1,17 @@
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0px 8px;
+  grid-template-areas:
+    '. main main main main main main main main main main .'
+    '. main main main main main main main main main main .'
+    '. main main main main main main main main main main .'
+    '. main main main main main main main main main main .';
+  justify-items: center;
+}
+
+main {
+  grid-area: main;
+}
