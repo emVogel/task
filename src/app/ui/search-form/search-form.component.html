@@ -1,8 +1,8 @@
 <!-- implement search form here -->
 <form [formGroup]="searchForm" (ngSubmit)="submitSearchString()">
-  <mat-form-field class="input-form-field" appearance="fill">
+  <mat-form-field class="search-input" appearance="fill">
     <mat-label>Serach for an entry</mat-label>
-    <input matInput class="search-input" placeholder="Search" formControlName="searchText">
+    <input matInput placeholder="Search" formControlName="searchText">
     <button *ngIf="!isEmpty()" matSuffix mat-icon-button aria-label="Clear" (click)="reset()">
       <mat-icon>close</mat-icon>
     </button>
@@ -10,7 +10,7 @@
 
 
   <mat-form-field appearance="fill">
-    <mat-label>Choose a filter term</mat-label>
+    <mat-label>Search for a Resource</mat-label>
     <mat-select formControlName="searchFuncSelect">
       <mat-option value="searchAll">None</mat-option>
       <mat-option *ngFor=" let resource of resources" [value]="resource.value">{{resource.label}}</mat-option>
