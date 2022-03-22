@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FhirSearchFn, IFhirPatient, IFhirPractitioner, IFhirSearchResponse } from '@red-probeaufgabe/types';
+import { FhirSearchFn, IFhirPatient, IFhirPractitioner, IFhirSearchResponse } from '../../types';
 import { AbstractSearchFacadeService } from './abstract-search-facade.service';
 import { PatientSearchService } from './patient-search.service';
 import { PractitionerSearchService } from './practitioner-search.service';
