@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+// changed the import path otherwise jest tests had failed
 import { FhirSearchFn, IFhirPatient, IFhirPractitioner, IFhirSearchResponse } from '../../types';
 import { AbstractSearchFacadeService } from './abstract-search-facade.service';
 import { PatientSearchService } from './patient-search.service';

@@ -67,6 +67,7 @@ describe('SearchFacadeService', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
+
   // tslint:disable:no-empty
   test('should init', () => {
     expect(searchFacadeService).toBeDefined();
