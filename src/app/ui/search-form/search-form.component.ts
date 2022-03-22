@@ -26,10 +26,12 @@ export class SearchFormComponent implements OnInit {
   ];
 
   @Output() onSearch: EventEmitter<ISearchFormData> = new EventEmitter<ISearchFormData>();
-
+  /** the accessor of the searchTerm field */
   public nameField: FormControl;
+  /** the accessor of the selectField */
   public selectField: FormControl;
   constructor(private _fb: FormBuilder) {
+    // the validator of the searchTerm field
     const searchStringValidator = (control: AbstractControl): { [key: string]: unknown } => {
       const reg = /[äÄÖöÜü]/;
 
@@ -75,10 +77,12 @@ export class SearchFormComponent implements OnInit {
     });
   }
 
+  /** checks for displaying reset-btn */
   public isEmpty(): boolean {
     return this.nameField.value === '' || this.nameField.value === null;
   }
 
+  /** resets the value of searchTerm */
   public reset(): void {
     this.nameField.reset('', { emitEvent: false });
   }
