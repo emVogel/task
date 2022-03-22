@@ -88,6 +88,6 @@ export class SearchFormComponent implements OnInit {
    */
   public submitSearchString(): void {
     const val: ISearchFormData = this.searchForm.value;
-    this.onSearch.emit(val);
+    this.onSearch.emit({ searchText: '', searchFuncSelect: this.selectField.value });
   }
 }
