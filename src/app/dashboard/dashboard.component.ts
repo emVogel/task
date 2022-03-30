@@ -10,7 +10,7 @@ import {
   ISearchFormData,
 } from '@red-probeaufgabe/types';
 import { IUnicornTableColumn } from '@red-probeaufgabe/ui';
-import { SearchFacadeService } from '@red-probeaufgabe/search';
+import { AbstractSearchFacadeService, SearchFacadeService } from '@red-probeaufgabe/search';
 
 @Component({
   selector: 'app-dashboard',
@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // the abstract class was inject from which the service inherits
-  constructor(private siteTitleService: SiteTitleService, private searchFacade: SearchFacadeService) {
+  constructor(private siteTitleService: SiteTitleService, private searchFacade: AbstractSearchFacadeService) {
     this.siteTitleService.setSiteTitle('Dashboard');
   }
 
